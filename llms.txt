@@ -1,0 +1,21 @@
+# OrbisHytale – Hytale Wiki
+
+> Hytale wiki in Portuguese, English and Spanish: 3734 items with crafting recipes, 339 creatures with 3D models, drops, benches, blocks, item IDs and pre-release content. Data extracted from the game files (2026-09-18).
+
+- https://orbishytale.com/en/items/
+- https://orbishytale.com/en/mobs/
+- https://orbishytale.com/en/crafting/
+- https://orbishytale.com/en/blocks/
+- https://orbishytale.com/en/ids/
+- https://orbishytale.com/pt/items/
+- https://orbishytale.com/pt/mobs/
+- https://orbishytale.com/pt/crafting/
+- https://orbishytale.com/pt/blocks/
+- https://orbishytale.com/pt/ids/
+- https://orbishytale.com/es/items/
+- https://orbishytale.com/es/mobs/
+- https://orbishytale.com/es/crafting/
+- https://orbishytale.com/es/blocks/
+- https://orbishytale.com/es/ids/
+
+URL patterns: /{lang}/item/{item_id_lowercase}/ and /{lang}/mob/{role_id_lowercase}/

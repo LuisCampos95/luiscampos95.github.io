@@ -1,0 +1,26 @@
+<!doctype html><html lang="pt"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Moderação · OrbisHytale</title><meta name="robots" content="noindex, nofollow"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://api.hytl.skin; media-src 'self' blob:; frame-src https://www.youtube-nocookie.com; connect-src 'self' blob: https://api.hytl.skin https://api.orbishytale.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin"><link rel="preload" href="/assets/fonts/Lexend-700.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/NunitoSans-400.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/assets/fonts/fonts.css">
+<link rel="icon" href="/assets/icon-48.png" type="image/png" sizes="48x48">
+<link rel="stylesheet" href="/assets/style.css?v=76930154"></head>
+<body class="adbody" data-api="https://api.orbishytale.com">
+<main class="wrap adwrap">
+  <header class="ph"><div><h1>Moderação</h1><p>Apagar comentário e banir autor. Só funciona com o token do Worker.</p></div><button class="btn btn-sm btn-ghost" type="button" id="logout">Sair</button></header>
+  <p class="adnote" id="note"></p>
+  <section class="panel adgate" id="gate">
+    <form id="gateform" autocomplete="off">
+      <label for="tok">Token de administrador</label>
+      <input class="inp" id="tok" type="password" autocomplete="off" spellcheck="false" placeholder="ADMIN_TOKEN do Worker">
+      <button class="btn btn-gold" type="submit">Entrar</button>
+    </form>
+    <p class="muted">O token fica só nesta aba e some quando você fecha. Nunca é gravado no site.</p>
+  </section>
+  <section class="panel" id="panel" hidden>
+    <h2>Últimos comentários</h2>
+    <div id="list"></div>
+    <h2>Banidos</h2>
+    <ul class="adbans" id="bans"></ul>
+  </section>
+</main>
+<script src="/assets/admin.js?v=092e487b" defer></script>
+</body></html>
