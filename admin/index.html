@@ -1,15 +1,16 @@
 <!doctype html><html lang="pt"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Moderação · OrbisHytale</title><meta name="robots" content="noindex, nofollow"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://api.hytl.skin https://cdn.discordapp.com; media-src 'self' blob:; frame-src https://www.youtube-nocookie.com; connect-src 'self' blob: https://api.hytl.skin https://api.orbishytale.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+<title>Painel · OrbisHytale</title><meta name="robots" content="noindex, nofollow"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://api.hytl.skin https://cdn.discordapp.com; media-src 'self' blob:; frame-src https://www.youtube-nocookie.com; connect-src 'self' blob: https://api.hytl.skin https://api.orbishytale.com; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin"><link rel="preload" href="/assets/fonts/Lexend-700.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/NunitoSans-400.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/assets/fonts/fonts.css">
 <link rel="icon" href="/assets/icon-48.png" type="image/png" sizes="48x48">
-<link rel="stylesheet" href="/assets/style.css?v=b7cbc7ab"></head>
+<link rel="stylesheet" href="/assets/style.css?v=e2b24d59"></head>
 <body class="adbody" data-api="https://api.orbishytale.com">
-<header class="adtop"><div class="wrap adtop-in"><a class="brand" href="/pt/">Orbis<span>Hytale</span></a><span class="adtop-t">Moderação</span><button class="btn btn-sm btn-ghost" type="button" id="logout" hidden>Sair</button></div></header>
-<main class="wrap adwrap">
+<header class="adtop"><div class="adtop-in"><a class="brand" href="/pt/">Orbis<span>Hytale</span></a><span class="adtop-t">Painel</span><span class="adtop-live" id="live" hidden><i></i>ao vivo</span><button class="btn btn-sm btn-ghost" type="button" id="logout" hidden>Sair</button></div></header>
+<main class="adwrap">
   <p class="adnote" id="note" role="status"></p>
   <section class="adgate" id="gate">
-    <h1>Moderação</h1>
-    <p>Apague comentários e bloqueie quem escreve besteira. Entre com o token de administrador.</p>
+    <span class="adgate-ic" aria-hidden="true">✦</span>
+    <h1>Painel do OrbisHytale</h1>
+    <p>Acessos, comentários, comunidade e a saúde do site em um lugar só. Entre com o token de administrador.</p>
     <form id="gateform" autocomplete="off">
       <label for="tok">Token de administrador</label>
       <input class="inp" id="tok" type="password" autocomplete="off" spellcheck="false" placeholder="Cole o token aqui">
@@ -17,19 +18,57 @@
     </form>
     <small>O token fica só nesta aba e some quando você fecha. Nunca é gravado no site.</small>
   </section>
-  <section id="panel" hidden>
-    <h2 class="adh adh-top">Acessos</h2>
-    <div class="adacc" id="acc"><p class="muted">Carregando…</p></div>
-    <h2 class="adh">Comentários</h2>
-    <div class="adstats" id="stats"></div>
-    <div class="adtools">
-      <input class="inp" id="q" type="search" placeholder="Buscar por texto, nome ou página" aria-label="Buscar">
-      <div class="adfilt" id="filt"></div>
-    </div>
-    <div class="adlist" id="list"></div>
-    <h2 class="adh">Bloqueados</h2>
-    <div class="adbans" id="bans"></div>
-  </section>
+  <div id="panel" hidden>
+    <nav class="adtabs" id="tabs" role="tablist">
+      <button type="button" role="tab" data-tab="home" class="on">Visão geral</button>
+      <button type="button" role="tab" data-tab="acc">Acessos</button>
+      <button type="button" role="tab" data-tab="cm">Comentários <b id="tab-cm"></b></button>
+      <button type="button" role="tab" data-tab="com">Comunidade</button>
+      <button type="button" role="tab" data-tab="ok">Saúde <b id="tab-ok"></b></button>
+    </nav>
+    <section class="adpane" data-pane="home">
+      <div class="adkpis" id="kpis"></div>
+      <div class="adgrid2">
+        <div class="adbox"><h3>Visitantes nos últimos 30 dias</h3><div id="mini"></div></div>
+        <div class="adbox"><h3>Precisa de atenção</h3><ul class="adalerts" id="alerts"></ul></div>
+      </div>
+      <div class="adgrid2">
+        <div class="adbox"><h3>Mais favoritados</h3><ol class="adrank" id="favtop5"></ol></div>
+        <div class="adbox"><h3>Últimos comentários</h3><div id="cmlast"></div></div>
+      </div>
+    </section>
+    <section class="adpane" data-pane="acc" hidden>
+      <div class="adkpis" id="acckpis"></div>
+      <div class="adbox"><h3>Visitantes e páginas vistas por dia</h3><div id="accchart"></div><p class="adhint">Visitantes = endereços diferentes por dia (inclui robôs de busca, como o do Google). Atualiza a cada 10 min.</p></div>
+      <div class="adgrid2">
+        <div class="adbox"><h3>De onde vêm os acessos (7 dias)</h3><div id="countries"></div></div>
+        <div class="adbox"><h3>Dia a dia</h3><div class="adtable" id="daytable"></div></div>
+      </div>
+    </section>
+    <section class="adpane" data-pane="cm" hidden>
+      <div class="adkpis" id="stats"></div>
+      <div class="adtools"><input class="inp" id="q" type="search" placeholder="Buscar por texto, nome ou página" aria-label="Buscar"><div class="adfilt" id="filt"></div></div>
+      <div class="adlist" id="list"></div>
+      <h3 class="adh">Bloqueados</h3>
+      <div class="adbans" id="bans"></div>
+    </section>
+    <section class="adpane" data-pane="com" hidden>
+      <div class="adkpis" id="comkpis"></div>
+      <div class="adgrid2">
+        <div class="adbox"><h3>Páginas mais favoritadas</h3><ol class="adrank" id="favtop"></ol></div>
+        <div class="adbox"><h3>Skins mais buscadas</h3><ol class="adrank adrank-skin" id="skintop"></ol><p class="adhint">Só você vê esta lista. No site, as skins aparecem sorteadas, sem ranking.</p></div>
+      </div>
+    </section>
+    <section class="adpane" data-pane="ok" hidden>
+      <div class="adbox"><h3>Serviços</h3><ul class="adchecks" id="checks"></ul></div>
+      <div class="adgrid2">
+        <div class="adbox"><h3>Publicação e dados</h3><ul class="adchecks" id="data"></ul></div>
+        <div class="adbox"><h3>Conteúdo no ar</h3><div class="adcounts" id="counts"></div></div>
+      </div>
+      <div class="adbox"><h3>Configuração</h3><ul class="adchecks" id="config"></ul></div>
+    </section>
+  </div>
 </main>
-<script src="/assets/admin.js?v=20cce04a" defer></script>
+<footer class="adfoot"><span class="adfoot-heart" aria-hidden="true">♥</span><p>Site mantido por <b>MrEnders</b> e feito com muito carinho para a comunidade de Hytale.</p><small>OrbisHytale · painel de administração</small></footer>
+<script src="/assets/admin.js?v=0050f28a" defer></script>
 </body></html>
