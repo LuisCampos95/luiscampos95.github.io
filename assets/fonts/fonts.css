@@ -1,0 +1,21 @@
+/* As duas fontes do site.
+   Antes havia 7 arquivos (3 Lexend e 4 Nunito Sans) que eram, byte a byte, 2 arquivos
+   repetidos — e todos com o unicode-range da faixa "latin-ext" do Google Fonts, sem o bloco
+   "latin" (U+0000–00FF). Resultado: o navegador baixava 78 KB em toda visita e nunca aplicava
+   a fonte a uma única letra do texto, porque o texto está justamente na faixa que faltava.
+   Agora são 2 arquivos, sem unicode-range, com a faixa de peso declarada. */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url(/assets/fonts/Lexend.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400 800;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(/assets/fonts/NunitoSans.woff2) format('woff2');
+}

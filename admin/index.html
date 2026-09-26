@@ -1,0 +1,123 @@
+<!doctype html><html lang="pt"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Painel · OrbisHytale</title><meta name="robots" content="noindex, nofollow"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://api.hytl.skin https://flagcdn.com; media-src 'self' blob:; frame-src https://www.youtube-nocookie.com; connect-src 'self' blob: https://api.hytl.skin https://api.orbishytale.com https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/assets/icon-48.png" type="image/png" sizes="48x48">
+<link rel="stylesheet" href="/assets/style.css?v=3b2e5534"><link rel="stylesheet" href="/assets/admin-bot.css?v=22d4f374"></head>
+<body class="pnlbody" data-api="https://api.orbishytale.com">
+<header class="pnltop"><div class="pnlshell pnltop-in"><a class="brand" href="/pt/">Orbis<span>Hytale</span></a><span class="pnltop-t">Painel</span><span class="pnltop-live" id="live" hidden><i></i><span id="live-t">ao vivo</span></span><button class="btn btn-sm btn-ghost" type="button" id="logout" hidden>Sair</button></div></header>
+<main class="pnlshell pnlwrap">
+  <p class="pnlnote" id="note" role="status"></p>
+  <section class="pnlgate" id="gate">
+    <span class="pnlgate-ic" aria-hidden="true">✦</span>
+    <h1>Painel do OrbisHytale</h1>
+    <p>Tráfego, comunidade, comentários e a saúde do site, tudo medido. Entre com o token de administrador.</p>
+    <form id="gateform" autocomplete="off">
+      <label for="tok">Token de administrador</label>
+      <input class="inp" id="tok" type="password" autocomplete="off" spellcheck="false" placeholder="Cole o token aqui">
+      <button class="btn btn-gold" type="submit">Entrar</button>
+    </form>
+    <small>O token fica só nesta aba e some quando você fecha. Nunca é gravado no site.</small>
+  </section>
+  <div class="pnlapp" id="panel" hidden>
+    <nav class="pnltabs" id="tabs" role="tablist">
+      <button type="button" role="tab" data-tab="home" class="on"><i>◈</i><span>Tráfego</span></button>
+      <button type="button" role="tab" data-tab="ads"><i>✦</i><span>Anunciantes</span></button>
+      <button type="button" role="tab" data-tab="cm"><i>✎</i><span>Comentários</span><b id="tab-cm"></b></button>
+      <button type="button" role="tab" data-tab="com"><i>★</i><span>Comunidade</span></button>
+      <button type="button" role="tab" data-tab="ok"><i>◉</i><span>Saúde</span><b id="tab-ok"></b></button>
+      <button type="button" role="tab" data-tab="bot"><i>⚙</i><span>Bot</span><b id="tab-bot"></b></button>
+    </nav>
+    <div class="pnlmain">
+      <section class="pnlpane" data-pane="home">
+        <div class="pnlhead">
+          <div><h2>Tráfego</h2><p id="home-sub">Dados da Cloudflare, atualizados a cada 10 minutos.</p></div>
+          <div class="pnlseg" id="period" role="group" aria-label="Período"><button type="button" data-days="7">7 dias</button><button type="button" data-days="30" class="on">30 dias</button><button type="button" data-days="90">90 dias</button></div>
+        </div>
+        <div id="rum"></div>
+        <details class="pnlraw" id="rawbox">
+          <summary>Tráfego bruto (inclui robôs) <span class="pnlraw-h">tudo que bate no site, robô de busca incluído — clique para abrir</span></summary>
+        <div class="pnlhero pnlhero-raw" id="hero"></div>
+        <div class="pnlcard pnlcard-chart">
+          <div class="pnlcard-h"><h3 id="chart-t">Visitantes por dia</h3>
+            <div class="pnlseg pnlseg-sm" id="metric" role="group" aria-label="Métrica"><button type="button" data-m="visitors" class="on">Visitantes</button><button type="button" data-m="pageViews">Páginas</button><button type="button" data-m="requests">Requisições</button><button type="button" data-m="bytes">Tráfego</button></div>
+          </div>
+          <div class="pnlchart" id="chart"></div>
+        </div>
+        </details>
+        <div class="pnlcard pnlcard-chart">
+          <div class="pnlcard-h"><h3>Últimas 48 horas, hora a hora</h3><span class="pnlpill" id="now-pill"></span></div>
+          <div class="pnlchart pnlchart-sm" id="hours"></div>
+        </div>
+        <div class="pnlslo" id="slo"></div>
+        <div class="pnlgrid3">
+          <div class="pnlcard"><div class="pnlcard-h"><h3>Países</h3></div><div id="countries"></div></div>
+          <div class="pnlcard"><div class="pnlcard-h"><h3>Navegadores</h3></div><div id="browsers"></div></div>
+          <div class="pnlcard"><div class="pnlcard-h"><h3>Respostas do servidor</h3></div><div id="status"></div></div>
+        </div>
+        <div class="pnlcard"><div class="pnlcard-h"><h3>Dia a dia</h3><button class="btn btn-sm btn-ghost" type="button" data-csv="days">Baixar planilha</button></div><div class="pnltable" id="daytable"></div></div>
+      </section>
+      <section class="pnlpane" data-pane="ads" hidden>
+        <div class="pnlhead"><div><h2>Para anunciantes</h2><p>O resumo que quem quer anunciar no OrbisHytale pede: alcance, audiência e de onde ela vem.</p></div></div>
+        <div class="pnlhero" id="adhero"></div>
+        <div class="pnlcard pnlexport">
+          <div><h3>Baixar os dados</h3><p>Escolha o período. As planilhas abrem no Excel e no Google Planilhas; o relatório abre pronto para salvar em PDF e enviar.</p></div>
+          <div class="pnlseg" id="exp-period" role="group" aria-label="Período da exportação"><button type="button" data-exp="7">7 dias</button><button type="button" data-exp="30" class="on">1 mês</button><button type="button" data-exp="90">90 dias</button></div>
+          <div class="pnlexport-b">
+            <button class="btn btn-gold" type="button" data-report>Relatório para anunciantes (PDF)</button>
+            <button class="btn btn-ghost" type="button" data-csv="days">Planilha por dia</button>
+            <button class="btn btn-ghost" type="button" data-csv="hours">Planilha por hora (48 h)</button>
+            <button class="btn btn-ghost" type="button" data-csv="countries">Planilha de países</button>
+          </div>
+        </div>
+        <div class="pnlgrid2">
+          <div class="pnlcard"><div class="pnlcard-h"><h3>Audiência por país</h3></div><div id="adcountries"></div></div>
+          <div class="pnlcard"><div class="pnlcard-h"><h3>O que o site oferece</h3></div><div class="pnlcounts" id="adcontent"></div></div>
+        </div>
+      </section>
+      <section class="pnlpane" data-pane="cm" hidden>
+        <div class="pnlhead"><div><h2>Comentários</h2><p>Moderação: apague o que não serve e bloqueie quem abusa.</p></div></div>
+        <div class="pnlhero pnlhero-sm" id="stats"></div>
+        <div class="pnltools"><input class="inp" id="q" type="search" placeholder="Buscar por texto, nome ou página" aria-label="Buscar"><div class="pnlfilt" id="filt"></div></div>
+        <div class="pnllist" id="list"></div>
+        <div class="pnlcard"><div class="pnlcard-h"><h3>Bloqueados</h3></div><div class="pnlbans" id="bans"></div></div>
+      </section>
+      <section class="pnlpane" data-pane="com" hidden>
+        <div class="pnlhead"><div><h2>Comunidade</h2><p>O que as pessoas favoritam e as skins que procuram.</p></div></div>
+        <div class="pnlhero pnlhero-sm" id="comkpis"></div>
+        <div class="pnlgrid2">
+          <div class="pnlcard"><div class="pnlcard-h"><h3>Páginas mais favoritadas</h3></div><ol class="pnlrank" id="favtop"></ol></div>
+          <div class="pnlcard"><div class="pnlcard-h"><h3>Skins mais buscadas</h3></div><ol class="pnlrank pnlrank-skin" id="skintop"></ol><p class="pnlhint">Só você vê esta lista. No site, as skins aparecem sorteadas, sem ranking.</p></div>
+        </div>
+      </section>
+      <section class="pnlpane" data-pane="ok" hidden>
+        <div class="pnlhead"><div><h2>Saúde do site</h2><p>Se cada parte está respondendo, quando o site foi publicado e o que está ligado.</p></div></div>
+        <div class="pnlcard"><div class="pnlcard-h"><h3>Serviços</h3></div><ul class="pnlchecks" id="checks"></ul></div>
+        <div class="pnlgrid2">
+          <div class="pnlcard"><div class="pnlcard-h"><h3>Publicação e dados</h3></div><ul class="pnlchecks" id="data"></ul></div>
+          <div class="pnlcard"><div class="pnlcard-h"><h3>Configuração</h3></div><ul class="pnlchecks" id="config"></ul></div>
+        </div>
+        <div class="pnlgrid2">
+          <div class="pnlcard"><div class="pnlcard-h"><h3>Espaço do site publicado</h3><span class="pnlpill">limite do GitHub Pages</span></div><div id="space"></div></div>
+          <div class="pnlcard"><div class="pnlcard-h"><h3>Limite de gravações (favoritos e comentários)</h3><span class="pnlpill">cota diária do KV</span></div><div id="kvlim"></div></div>
+        </div>
+        <div class="pnlgrid2">
+          <div class="pnlcard"><div class="pnlcard-h"><h3>Espaço do site publicado</h3><span class="pnlpill">limite do GitHub Pages</span></div><div id="space"></div></div>
+          <div class="pnlcard"><div class="pnlcard-h"><h3>Limite de gravações (favoritos e comentários)</h3><span class="pnlpill">cota diária do KV</span></div><div id="kvlim"></div></div>
+        </div>
+        <div class="pnlgrid2">
+          <div class="pnlcard"><div class="pnlcard-h"><h3>Espaço do site publicado</h3><span class="pnlpill">limite do GitHub Pages</span></div><div id="space"></div></div>
+          <div class="pnlcard"><div class="pnlcard-h"><h3>Limite de gravações (favoritos e comentários)</h3><span class="pnlpill">cota diária do KV</span></div><div id="kvlim"></div></div>
+        </div>
+        <div class="pnlcard"><div class="pnlcard-h"><h3>Conteúdo no ar</h3></div><div class="pnlcounts" id="counts"></div></div>
+      </section>
+      <section class="pnlpane" data-pane="bot" hidden>
+        <div class="pnlhead"><div><h2>Bot do Discord</h2><p>Gateway 24h, uso do plano, IA, comandos e Liga do Mês. Atualiza sozinho a cada 30 s enquanto esta aba está aberta.</p></div><div class="bt-head"><span class="pnlpill" id="bot-at">—</span><button class="btn btn-sm btn-ghost" type="button" data-bot-atualiza>Atualizar</button></div></div>
+        <div id="botpane"><p class="pnlempty">Carregando…</p></div>
+      </section>
+    </div>
+  </div>
+</main>
+<div class="pnltip" id="tip" hidden></div>
+<script src="/assets/admin.js?v=c074d444" defer></script>
+<script src="/assets/admin-bot.js?v=ae09048a" defer></script>
+</body></html>
