@@ -1,0 +1,98 @@
+<div class="modal stu" id="stu" hidden data-fmt="vertical" data-tipo="imagem" data-estado="carregando"><div class="stu-box" role="dialog" aria-modal="true" aria-labelledby="stu-titulo">
+  <header class="stu-h">
+    <div class="stu-h-id"><span>Studio</span><strong id="stu-titulo"></strong></div>
+    <p class="stu-dica" id="stu-dica">Drag to turn · scroll or pinch to zoom</p>
+    <button class="stu-ib stu-fecha" type="button" data-stu-fechar aria-label="Close"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </header>
+  <div class="stu-in">
+    <section class="stu-palco" aria-label="Preview of the result">
+      <div class="stu-view">
+        <canvas id="stu-tela" role="img" aria-label="Preview of the result"></canvas>
+        <div class="stu-load" aria-hidden="true"><span class="stu-spin"></span>Getting the model ready…</div>
+        <button type="button" class="stu-ib stu-flut" id="stu-reset" aria-label="Reset view" title="Reset view"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6"/><path d="M3.5 4v4.5H8"/></svg></button>
+      </div>
+      <div class="stu-cam" id="stu-cam" data-eixo="zoom" role="group" aria-label="Framing">
+        <div class="stu-eixos">
+          <button type="button" class="stu-ib on" data-stu-eixo="zoom" aria-label="Zoom" aria-pressed="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2M11 8v6M8 11h6"/></svg></button>
+          <button type="button" class="stu-ib" data-stu-eixo="x" aria-label="Left and right" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M7 9l-3 3 3 3M17 9l3 3-3 3"/></svg></button>
+          <button type="button" class="stu-ib" data-stu-eixo="y" aria-label="Move up and down" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M9 7l3-3 3 3M9 17l3 3 3-3"/></svg></button>
+        </div>
+        <label class="stu-cc" data-c="zoom"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2M11 8v6M8 11h6"/></svg><span>Zoom</span><input id="stu-zoom" aria-label="Zoom" type="range" min="0.4" max="2.4" step="0.01" value="1" list="marcas-stu-zoom"><output id="stu-zoom-val"></output></label>
+        <label class="stu-cc" data-c="x"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M7 9l-3 3 3 3M17 9l3 3-3 3"/></svg><span>Left and right</span><input id="stu-posx" aria-label="Left and right" type="range" min="-1" max="1" step="0.01" value="0" list="marcas-stu-posx"><output id="stu-posx-val"></output></label>
+        <label class="stu-cc" data-c="y"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M9 7l3-3 3 3M9 17l3 3 3-3"/></svg><span>Move up and down</span><input id="stu-posy" aria-label="Move up and down" type="range" min="-1" max="1" step="0.01" value="0" list="marcas-stu-posy"><output id="stu-posy-val"></output></label>
+      </div>
+      <div class="stu-mov" id="stu-mov">
+        <div class="stu-mov-l" id="stu-linha-anim">
+          <button type="button" class="stu-ib" id="stu-play" data-tocando="1" aria-label="Pause animation"><svg class="ic ic-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="5.5" width="4" height="13" rx="1" fill="currentColor" stroke="none"/><rect x="13.5" y="5.5" width="4" height="13" rx="1" fill="currentColor" stroke="none"/></svg><svg class="ic ic-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 5.5v13l10-6.5z" fill="currentColor" stroke="none"/></svg></button>
+          <select id="stu-anim" class="sel" aria-label="Animation"></select>
+          <button type="button" class="stu-add" id="stu-add"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Add to video</span></button>
+        </div>
+        <label class="stu-mov-l" id="stu-linha-tempo"><span class="stu-mov-r">Length</span><select id="stu-tempo" class="sel"><option value="0" selected>one loop</option><option value="3">~3 s</option><option value="5">~5 s</option><option value="8">~8 s</option><option value="10">~10 s</option></select><small class="stu-dur" id="stu-dur" hidden></small></label>
+        <div class="stu-seq" id="stu-seq" hidden>
+          <span class="stu-mov-r">Video sequence</span>
+          <ol class="stu-seq-l" id="stu-seq-l"></ol>
+          <button type="button" class="stu-seq-x" id="stu-seq-limpa">Clear</button>
+        </div>
+      </div>
+      <datalist id="marcas-stu-zoom"><option value="0.5"></option><option value="0.75"></option><option value="1"></option><option value="1.25"></option><option value="1.5"></option><option value="2"></option></datalist>
+      <datalist id="marcas-stu-posx"><option value="-0.5"></option><option value="0"></option><option value="0.5"></option></datalist>
+      <datalist id="marcas-stu-posy"><option value="-0.5"></option><option value="0"></option><option value="0.5"></option></datalist>
+    </section>
+
+    <aside class="stu-pn">
+      <div class="stu-pn-rolo">
+        <div class="stu-seg stu-saida" role="radiogroup" aria-label="Output">
+          <button type="button" class="on" data-stu-tipo="imagem" role="radio" aria-checked="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="3"/><circle cx="8.5" cy="10" r="1.5"/><path d="m4 17 5-4.5 4 3.5 3-2.5 4 3.5"/></svg><b>Image</b></button>
+          <button type="button" data-stu-tipo="video" role="radio" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="13" height="14" rx="3"/><path d="m16.5 12 4.5-3.2v6.4z"/></svg><b>Video</b></button>
+          <button type="button" data-stu-tipo="gif" role="radio" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 1 1-2.8-6.3"/><path d="M20.5 3.5v4.2h-4.2"/></svg><b>GIF</b></button>
+        </div>
+        <div class="stu-grp">
+          <h3 class="stu-t" id="stu-t-fmt">Format</h3>
+          <div class="stu-seg stu-fmts" role="radiogroup" aria-labelledby="stu-t-fmt"><button type="button" class="stu-fmt on" data-stu-fmt="vertical" role="radio" aria-checked="true"><i class="stu-ar stu-ar-vertical" aria-hidden="true"></i><b>Vertical</b></button><button type="button" class="stu-fmt" data-stu-fmt="quadrado" role="radio" aria-checked="false"><i class="stu-ar stu-ar-quadrado" aria-hidden="true"></i><b>Square</b></button><button type="button" class="stu-fmt" data-stu-fmt="horizontal" role="radio" aria-checked="false"><i class="stu-ar stu-ar-horizontal" aria-hidden="true"></i><b>Horizontal</b></button></div>
+        </div>
+        <div class="stu-grp">
+          <h3 class="stu-t" id="stu-t-fundo">Background</h3>
+          <div class="stu-fundos" role="radiogroup" aria-labelledby="stu-t-fundo"><button type="button" class="stu-fundo on" data-stu-fundo="liso" role="radio" aria-checked="true" aria-label="No scene"><span>No scene</span></button><button type="button" class="stu-fundo" data-stu-fundo="dragao" role="radio" aria-checked="false" aria-label="Dragon" style="background-image:url(/assets/art/cena-dragao.jpg)"><span>Dragon</span></button><button type="button" class="stu-fundo" data-stu-fundo="vila" role="radio" aria-checked="false" aria-label="Village" style="background-image:url(/assets/art/cena-vila.jpg)"><span>Village</span></button><button type="button" class="stu-fundo" data-stu-fundo="deserto" role="radio" aria-checked="false" aria-label="Desert" style="background-image:url(/assets/art/cena-deserto.jpg)"><span>Desert</span></button><button type="button" class="stu-fundo" data-stu-fundo="fundo1" role="radio" aria-checked="false" aria-label="Orbis I" style="background-image:url(/assets/art/cena-fundo1.jpg)"><span>Orbis I</span></button><button type="button" class="stu-fundo" data-stu-fundo="fundo2" role="radio" aria-checked="false" aria-label="Orbis II" style="background-image:url(/assets/art/cena-fundo2.jpg)"><span>Orbis II</span></button><button type="button" class="stu-fundo" data-stu-fundo="fundo4" role="radio" aria-checked="false" aria-label="Orbis III" style="background-image:url(/assets/art/cena-fundo4.jpg)"><span>Orbis III</span></button><button type="button" class="stu-fundo" data-stu-fundo="fundo5" role="radio" aria-checked="false" aria-label="Orbis IV" style="background-image:url(/assets/art/cena-fundo5.jpg)"><span>Orbis IV</span></button><button type="button" class="stu-fundo" data-stu-fundo="fundo6" role="radio" aria-checked="false" aria-label="Orbis V" style="background-image:url(/assets/art/cena-fundo6.jpg)"><span>Orbis V</span></button><button type="button" class="stu-fundo" data-stu-fundo="orbis" role="radio" aria-checked="false" aria-label="Hytale" style="background-image:url(/assets/art/hero.jpg)"><span>Hytale</span></button></div>
+          <label class="stu-sw stu-sw-2" id="stu-linha-so"><span>Transparent background<small>Only the model, as PNG</small></span><input type="checkbox" role="switch" id="stu-so-modelo"></label>
+        </div>
+        <div class="stu-grp" id="stu-sec-visual">
+          <h3 class="stu-t">Look</h3>
+          <div class="stu-sws" id="stu-acabamentos">
+            <label class="stu-sw"><span>Show name</span><input type="checkbox" role="switch" id="stu-nome-on" checked></label>
+            <label class="stu-sw chk"><span>Show stats</span><input type="checkbox" role="switch" id="stu-dados-on"></label>
+            <label class="stu-sw"><span>Stage light</span><input type="checkbox" role="switch" id="stu-luz" checked></label>
+            <label class="stu-sw"><span>Ground shadow</span><input type="checkbox" role="switch" id="stu-sombra" checked></label>
+            <label class="stu-sw"><span>Darken background</span><input type="checkbox" role="switch" id="stu-escurece" checked></label>
+            <label class="stu-rg"><span>Background blur<output id="stu-desfoque-val">8</output></span><input id="stu-desfoque" type="range" min="0" max="20" step="1" value="8"></label>
+          </div>
+        </div>
+      </div>
+      <div class="stu-pe">
+        <p class="stu-erro" id="stu-erro" role="alert" hidden></p>
+        <button class="stu-go" type="button" id="stu-share"><span class="stu-go-bar" aria-hidden="true"></span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l1.9 5 5.1 1.9-5.1 1.9L12 17.5l-1.9-5.2L5 10.4l5.1-1.9z"/><path d="M19 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg><span id="stu-go-txt">Create image</span></button>
+        <p class="stu-go-meta"><span id="stu-go-meta">PNG · 1080 × 1920</span><button type="button" class="stu-ultimo" id="stu-ultimo" hidden>Open last result</button></p>
+        <progress id="stu-prog" max="100" value="0" hidden></progress>
+      </div>
+    </aside>
+  </div>
+  <div class="stu-aviso" id="stu-aviso" role="status" aria-live="polite"></div>
+  <div class="stu-share" id="stu-folha" hidden><div class="stu-share-box" role="dialog" aria-modal="true" aria-labelledby="stu-res-t">
+    <div class="stu-res-h"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9.5"/></svg><div><strong id="stu-res-t">Ready</strong><small id="stu-res-meta"></small></div><button class="stu-ib" type="button" data-stu-folha-fecha aria-label="Close"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="stu-res-prev" id="stu-res-prev"></div>
+    <button type="button" class="stu-go stu-res-dl" data-rede="arquivo"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 19h16"/></svg><span>Save file</span></button>
+    <div class="stu-res-alt">
+      <button type="button" class="stu-res-b" data-rede="sistema" id="stu-sistema"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5 15.4 17M15.4 7 8.6 10.5"/></svg>Share file</button>
+      <button type="button" class="stu-res-b" data-rede="copiar"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>Copy image</button>
+    </div>
+    <p class="stu-res-sep">Share the page</p>
+    <div class="stu-redes" id="stu-redes">
+      <button type="button" class="stu-rede" data-rede="x" aria-label="X"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M18.2 2h3.4l-7.4 8.5L23 22h-6.8l-5.3-7-6.1 7H1.4l7.9-9.1L1 2h7l4.8 6.4L18.2 2Zm-1.2 18h1.9L7.1 3.9H5.1L17 20Z"/></svg></button>
+      <button type="button" class="stu-rede" data-rede="reddit" aria-label="Reddit"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a2 2 0 0 0-3.4-1.4 9.9 9.9 0 0 0-5.1-1.6l.9-4 2.8.6a1.7 1.7 0 1 0 .2-1l-3.4-.7a.5.5 0 0 0-.6.4l-1 4.7a9.9 9.9 0 0 0-5.2 1.6A2 2 0 1 0 4 13.9a4 4 0 0 0 0 .6c0 3 3.6 5.5 8 5.5s8-2.5 8-5.5a4 4 0 0 0 0-.6A2 2 0 0 0 22 12ZM8.5 13.5a1.4 1.4 0 1 1 1.4 1.4 1.4 1.4 0 0 1-1.4-1.4Zm7.7 4a5.6 5.6 0 0 1-4.2 1.4 5.6 5.6 0 0 1-4.2-1.4.5.5 0 0 1 .7-.7 4.7 4.7 0 0 0 3.5 1.1 4.7 4.7 0 0 0 3.5-1.1.5.5 0 1 1 .7.7Zm-.1-2.6a1.4 1.4 0 1 1 1.4-1.4 1.4 1.4 0 0 1-1.4 1.4Z"/></svg></button>
+      <button type="button" class="stu-rede" data-rede="whatsapp" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5 0a6.7 6.7 0 0 1-2-1.2 7.4 7.4 0 0 1-1.4-1.7c-.1-.3 0-.4.1-.5l.4-.5a1.8 1.8 0 0 0 .2-.4.5.5 0 0 0 0-.4c0-.1-.6-1.4-.8-1.9s-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 2.9 2.9 0 0 0-.9 2.2 5 5 0 0 0 1 2.6 11.4 11.4 0 0 0 4.4 3.9 9.1 9.1 0 0 0 1.5.5 3.5 3.5 0 0 0 1.6.1 2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"/></svg></button>
+      <button type="button" class="stu-rede" data-rede="telegram" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 20c-.2 1-.9 1.3-1.7.8l-4.6-3.4-2.2 2.1a1.2 1.2 0 0 1-1 .5l.4-4.9 9-8.1c.4-.3-.1-.5-.6-.2L7 11.7l-4.7-1.5c-1-.3-1-1 .2-1.5l18.3-7c.8-.3 1.5.2 1.1 2.6Z"/></svg></button>
+      <button type="button" class="stu-rede" data-rede="facebook" aria-label="Facebook"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8.2h2.8l.4-3.2h-3.2V8.5c0-.9.3-1.6 1.6-1.6h1.7V4.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.3v3.2h2.8V22h3.4Z"/></svg></button>
+      <button type="button" class="stu-rede" data-rede="link" aria-label="Copy link"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></button>
+    </div>
+    <p class="stu-share-nota">The networks get the page link. To post the file itself, download it first and attach it.</p>
+  </div></div>
+</div></div>

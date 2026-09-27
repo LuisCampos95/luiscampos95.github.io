@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /eldryn-hub-0s5sr6/
+Disallow: /eldryn-midia/
+Sitemap: https://orbishytale.com/sitemap.xml
